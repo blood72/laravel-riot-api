@@ -1,0 +1,60 @@
+{
+    "name": "blood72/laravel-riot-api",
+    "type": "library",
+    "description": "Riot API wrapper for Laravel",
+    "license": "MIT",
+    "keywords": [
+        "Laravel",
+        "Riot API"
+    ],
+    "authors": [
+        {
+            "name": "blood72",
+            "email": "blood72@naver.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/blood72/laravel-riot-api/issues",
+        "source": "https://github.com/blood72/laravel-riot-api"
+    },
+    "suggest": {
+        "dolejska-daniel/riot-api": "This is the parent project of this unofficial package."
+    },
+    "require": {
+        "php": "^7.2.5",
+        "dolejska-daniel/riot-api": "^4.1",
+        "illuminate/cache": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5",
+        "friendsofphp/php-cs-fixer": "^2.15",
+        "orchestra/testbench": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Blood72\\RiotAPI\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Blood72\\RiotAPI\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Blood72\\RiotAPI\\RiotAPIServiceProvider"
+            ],
+            "aliases": {
+                "LeagueAPI": "Blood72\\RiotAPI\\LeagueAPIFacade",
+                "DataDragonAPI": "Blood72\\RiotAPI\\DataDragonAPIFacade"
+            }
+        }
+    },
+    "scripts": {
+        "format": "php-cs-fixer fix .",
+        "test": "phpunit"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
