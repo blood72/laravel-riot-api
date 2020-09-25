@@ -6,7 +6,6 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use RiotAPI\DataDragonAPI\DataDragonAPI;
-use RiotAPI\LeagueAPI\Definitions\Cache;
 use RiotAPI\LeagueAPI\LeagueAPI;
 
 class RiotAPIServiceProvider extends ServiceProvider implements DeferrableProvider
@@ -82,25 +81,24 @@ class RiotAPIServiceProvider extends ServiceProvider implements DeferrableProvid
      */
     protected function resolveDataDragonAPI()
     {
-        if (! $this->app->resolved('league-api') || ! $this->app['config']->get('riot-api.league.ddragon_linking')) {
-            DataDragonAPI::initByRegion(
-                $this->app['config']->get('riot-api.region', []),
-                $this->app['config']->get('riot-api.ddragon.settings')
-            );
+        $this->app->singleton('ddragon-api', function (Container $app) {
+            if (! $app->resolved('league-api') || ! $app['config']->get('riot-api.league.ddragon_linking')) {
+                DataDragonAPI::initByCdn($app['config']->get('riot-api.ddragon.settings'));
 
-            if ($this->app['config']->get('riot-api.cache')) {
-                $cache = $this->app['cache.psr6'];
+                if ($app['config']->get('riot-api.cache')) {
+                    $cache = $app['cache.psr6'];
 
-                if ($namespace = $this->app['config']->get('riot-api.ddragon.cache_namespace')) {
-                    $cacheProvider = get_class($cache);
-                    $cache = (new $cacheProvider($this->app['cache.store'], $namespace));
+                    if ($namespace = $app['config']->get('riot-api.ddragon.cache_namespace')) {
+                        $cacheProvider = get_class($cache);
+                        $cache = (new $cacheProvider($app['cache.store'], $namespace));
+                    }
+
+                    DataDragonAPI::setCacheInterface($cache);
                 }
+            };
 
-                DataDragonAPI::setCacheInterface($cache);
-            }
-        }
-
-        $this->app->alias(DataDragonAPI::class, 'ddragon-api');
+            return new DataDragonAPI;
+        });
     }
 
     /**
