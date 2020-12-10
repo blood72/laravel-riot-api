@@ -3,7 +3,7 @@
 return [
     'key' => env('RIOT_API_KEY'),
 
-    'region' => env('RIOT_API_REGION'),
+    'region' => env('RIOT_API_REGION', \RiotAPI\LeagueAPI\Definitions\Region::NORTH_AMERICA),
 
     'cache' => env('RIOT_API_CACHE', true),
 

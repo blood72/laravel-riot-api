@@ -40,7 +40,7 @@ It requires ```RIOT_API_KEY``` and ```RIOT_API_REGION```
 ```php
 // in riot-api.php
 'key' => env('RIOT_API_KEY'),
-'region' => env('RIOT_API_REGION'),
+'region' => env('RIOT_API_REGION', 'na'),
 ```
 
 You can turn ON/OFF Laravel cache driver \(default is ```true```)
