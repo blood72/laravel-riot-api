@@ -21,7 +21,7 @@
         "dolejska-daniel/riot-api": "This is the parent project of this unofficial package."
     },
     "require": {
-        "php": "^7.3",
+        "php": ">=7.3",
         "dolejska-daniel/riot-api": "^4.1.2",
         "illuminate/cache": "^7.0|^8.0"
     },
