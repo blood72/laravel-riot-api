@@ -1,9 +1,9 @@
 <?php
 
-namespace Blood72\RiotAPI\Test;
+namespace Blood72\Riot\Tests;
 
-use Blood72\RiotAPI\DataDragonAPIFacade;
-use Blood72\RiotAPI\LeagueAPIFacade;
+use Blood72\Riot\Facades\DataDragonAPI as DataDragonAPIFacade;
+use Blood72\Riot\Facades\LeagueAPI as LeagueAPIFacade;
 use RiotAPI\DataDragonAPI\DataDragonAPI;
 use RiotAPI\LeagueAPI\LeagueAPI;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Blood72\RiotAPI;
+namespace Blood72\Riot;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Support\DeferrableProvider;
@@ -77,7 +77,6 @@ class RiotAPIServiceProvider extends ServiceProvider implements DeferrableProvid
      *
      * @see DataDragonAPI
      * @return void
-     * @throws \RiotAPI\DataDragonAPI\Exceptions\RequestException
      */
     protected function resolveDataDragonAPI()
     {

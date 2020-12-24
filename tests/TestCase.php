@@ -1,10 +1,10 @@
 <?php
 
-namespace Blood72\RiotAPI\Test;
+namespace Blood72\Riot\Tests;
 
-use Blood72\RiotAPI\DataDragonAPIFacade;
-use Blood72\RiotAPI\LeagueAPIFacade;
-use Blood72\RiotAPI\RiotAPIServiceProvider;
+use Blood72\Riot\Facades\DataDragonAPI;
+use Blood72\Riot\Facades\LeagueAPI;
+use Blood72\Riot\RiotAPIServiceProvider;
 use Orchestra\Testbench\TestCase as BaseCase;
 use RiotAPI\LeagueAPI\Definitions\Region;
 
@@ -31,8 +31,8 @@ abstract class TestCase extends BaseCase
     protected function getPackageAliases($app)
     {
         return [
-            'LeagueAPI' => LeagueAPIFacade::class,
-            'DataDragonAPI' => DataDragonAPIFacade::class,
+            'LeagueAPI' => LeagueAPI::class,
+            'DataDragonAPI' => DataDragonAPI::class,
         ];
     }
 

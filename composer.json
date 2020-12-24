@@ -32,22 +32,22 @@
     },
     "autoload": {
         "psr-4": {
-            "Blood72\\RiotAPI\\": "src/"
+            "Blood72\\Riot\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Blood72\\RiotAPI\\Test\\": "tests/"
+            "Blood72\\Riot\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Blood72\\RiotAPI\\RiotAPIServiceProvider"
+                "Blood72\\Riot\\RiotAPIServiceProvider"
             ],
             "aliases": {
-                "LeagueAPI": "Blood72\\RiotAPI\\LeagueAPIFacade",
-                "DataDragonAPI": "Blood72\\RiotAPI\\DataDragonAPIFacade"
+                "LeagueAPI": "Blood72\\Riot\\Facades\\LeagueAPI",
+                "DataDragonAPI": "Blood72\\Riot\\Facades\\DataDragonAPI"
             }
         }
     },

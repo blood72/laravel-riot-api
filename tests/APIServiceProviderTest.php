@@ -1,12 +1,12 @@
 <?php
 
-namespace Blood72\RiotAPI\Test;
+namespace Blood72\Riot\Tests;
 
-use Blood72\RiotAPI\RiotAPIServiceProvider;
+use Blood72\Riot\RiotAPIServiceProvider;
 use RiotAPI\DataDragonAPI\DataDragonAPI;
 use RiotAPI\LeagueAPI\LeagueAPI;
 
-class ServiceProviderTest extends TestCase
+class APIServiceProviderTest extends TestCase
 {
     /** @test */
     public function it_is_possible_to_defer_a_provider()

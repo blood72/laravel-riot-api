@@ -1,16 +1,16 @@
 <?php
 
-namespace Blood72\RiotAPI;
+namespace Blood72\Riot\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class LeagueAPIFacade extends Facade
+class DataDragonAPI extends Facade
 {
     /**
      * {@inheritDoc}
      */
     protected static function getFacadeAccessor()
     {
-        return 'league-api';
+        return 'ddragon-api';
     }
 }
