@@ -3,12 +3,11 @@
 namespace Blood72\Riot;
 
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use RiotAPI\DataDragonAPI\DataDragonAPI;
 use RiotAPI\LeagueAPI\LeagueAPI;
 
-class RiotAPIServiceProvider extends ServiceProvider implements DeferrableProvider
+class RiotAPIServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application events.

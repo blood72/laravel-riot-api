@@ -6,7 +6,7 @@ use Blood72\Riot\RiotAPIServiceProvider;
 use RiotAPI\DataDragonAPI\DataDragonAPI;
 use RiotAPI\LeagueAPI\LeagueAPI;
 
-class APIServiceProviderTest extends TestCase
+class ServiceProviderTest extends TestCase
 {
     /** @test */
     public function it_is_possible_to_defer_a_provider()
@@ -19,7 +19,7 @@ class APIServiceProviderTest extends TestCase
 
         $actual = $provider->isDeferred();
 
-        $this->assertTrue($actual);
+        $this->assertFalse($actual);
     }
 
     /** @test */
