@@ -2,6 +2,7 @@
 
 namespace Blood72\Riot;
 
+use Blood72\Riot\Proxies\LeagueAPIProxy;
 use Illuminate\Container\Container;
 use Illuminate\Support\ServiceProvider;
 use RiotAPI\DataDragonAPI\DataDragonAPI;
@@ -47,7 +48,7 @@ class RiotAPIServiceProvider extends ServiceProvider
     protected function resolveLeagueAPI()
     {
         $this->app->singleton('league-api', function (Container $app) {
-            return new LeagueAPI(array_merge([
+            $api = new LeagueAPI(array_merge([
                 LeagueAPI::SET_KEY => $app['config']->get('riot-api.key'),
                 LeagueAPI::SET_REGION => $app['config']->get('riot-api.region'),
 
@@ -68,6 +69,8 @@ class RiotAPIServiceProvider extends ServiceProvider
                     $app['config']->get('riot-api.ddragon.cache_namespace'),
                 ],
             ], $app['config']->get('riot-api.league.settings')));
+
+            return new LeagueAPIProxy($api);
         });
     }
 

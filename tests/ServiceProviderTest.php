@@ -3,8 +3,8 @@
 namespace Blood72\Riot\Tests;
 
 use Blood72\Riot\RiotAPIServiceProvider;
+use Blood72\Riot\Proxies\LeagueAPIProxy as LeagueAPI;
 use RiotAPI\DataDragonAPI\DataDragonAPI;
-use RiotAPI\LeagueAPI\LeagueAPI;
 
 class ServiceProviderTest extends TestCase
 {

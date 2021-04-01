@@ -4,8 +4,8 @@ namespace Blood72\Riot\Tests;
 
 use Blood72\Riot\Facades\DataDragonAPI as DataDragonAPIFacade;
 use Blood72\Riot\Facades\LeagueAPI as LeagueAPIFacade;
+use Blood72\Riot\Proxies\LeagueAPIProxy as LeagueAPI;
 use RiotAPI\DataDragonAPI\DataDragonAPI;
-use RiotAPI\LeagueAPI\LeagueAPI;
 
 class FacadeTest extends TestCase
 {
