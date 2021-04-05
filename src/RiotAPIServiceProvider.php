@@ -28,11 +28,17 @@ class RiotAPIServiceProvider extends ServiceProvider
      * Register the service provider.
      *
      * @return void
-     * @throws \RiotAPI\DataDragonAPI\Exceptions\RequestException
      */
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/riot-api.php', 'riot-api');
+
+        // support Laravel IDE Helper to work with @mixin properly
+        if (class_exists('Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider') && app()->runningInConsole()) {
+            config([
+                'ide-helper.extra.LeagueAPI' => ['RiotAPI\LeagueAPI\LeagueAPI'],
+            ]);
+        }
 
         $this->resolveLeagueAPI();
 
