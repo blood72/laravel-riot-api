@@ -44,6 +44,7 @@ abstract class TestCase extends BaseCase
      */
     protected function getEnvironmentSetUp($app)
     {
+        $app['config']->set('riot-api.locale', 'ko_KR');
         $app['config']->set('riot-api.region', Region::KOREA);
     }
 }
