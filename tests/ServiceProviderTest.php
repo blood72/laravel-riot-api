@@ -44,4 +44,20 @@ class ServiceProviderTest extends TestCase
         $this->assertContains('league-api', $actual);
         $this->assertContains('ddragon-api', $actual);
     }
+
+    /** @test */
+    public function it_should_be_resolved_when_static_data_linking_is_enabled(): void
+    {
+        config()->set('riot-api.league.ddragon_linking', true);
+
+        app('league-api');
+
+        try {
+            DataDragonAPI::checkInit();
+        } catch (\RiotAPI\DataDragonAPI\Exceptions\SettingsException $e) {
+            $this->fail('DataDragonAPI class was not initialized');
+        }
+
+        $this->expectNotToPerformAssertions();
+    }
 }

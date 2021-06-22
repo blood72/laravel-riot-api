@@ -19,7 +19,7 @@ class RiotAPIServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/riot-api.php' => config_path("riot-api.php"),
+                __DIR__ . '/../config/riot-api.php' => config_path('riot-api.php'),
             ], 'config');
         }
     }
@@ -76,6 +76,13 @@ class RiotAPIServiceProvider extends ServiceProvider
                 ],
             ], $app['config']->get('riot-api.league.settings')));
 
+            // Resolve DataDragonAPI when LeagueAPI StaticData linking is enabled
+            if ($app['config']->get('riot-api.league.ddragon_linking')) {
+                $app->afterResolving('league-api', function () {
+                    app('ddragon-api')->checkInit();
+                });
+            }
+
             return new LeagueAPIProxy($api);
         });
     }
@@ -91,11 +98,9 @@ class RiotAPIServiceProvider extends ServiceProvider
         $this->app->singleton('ddragon-api', function (Container $app) {
             $customSettings = $app['config']->get('riot-api.ddragon.settings');
 
-            if ($app->resolved('league-api')) {
-                DataDragonAPI::initByRealmObject(app('league-api')->getStaticRealm(), $customSettings);
-            } elseif (! $app->resolved('league-api') || ! $app['config']->get('riot-api.league.ddragon_linking')) {
-                DataDragonAPI::initByCdn($customSettings);
-            }
+            $app->resolved('league-api')
+                ? DataDragonAPI::initByRealmObject(app('league-api')->getStaticRealm(), $customSettings)
+                : DataDragonAPI::initByCdn($customSettings);
 
             if ($app['config']->get('riot-api.cache')) {
                 $cacheProvider = get_class($app['cache.psr6']);
@@ -108,12 +113,6 @@ class RiotAPIServiceProvider extends ServiceProvider
 
             return new DataDragonAPI;
         });
-
-        if ($this->app['config']->get('riot-api.league.ddragon_linking')) {
-            $this->app->afterResolving('league-api', function () {
-                app('ddragon-api')->checkInit();
-            });
-        }
     }
 
     /**
