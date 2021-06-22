@@ -89,8 +89,12 @@ class RiotAPIServiceProvider extends ServiceProvider
     protected function resolveDataDragonAPI()
     {
         $this->app->singleton('ddragon-api', function (Container $app) {
-            if (! $app->resolved('league-api') || ! $app['config']->get('riot-api.league.ddragon_linking')) {
-                DataDragonAPI::initByCdn($app['config']->get('riot-api.ddragon.settings'));
+            $customSettings = $app['config']->get('riot-api.ddragon.settings');
+
+            if ($app->resolved('league-api')) {
+                DataDragonAPI::initByRealmObject(app('league-api')->getStaticRealm(), $customSettings);
+            } elseif (! $app->resolved('league-api') || ! $app['config']->get('riot-api.league.ddragon_linking')) {
+                DataDragonAPI::initByCdn($customSettings);
             }
 
             if ($app['config']->get('riot-api.cache')) {
@@ -104,6 +108,12 @@ class RiotAPIServiceProvider extends ServiceProvider
 
             return new DataDragonAPI;
         });
+
+        if ($this->app['config']->get('riot-api.league.ddragon_linking')) {
+            $this->app->afterResolving('league-api', function () {
+                app('ddragon-api')->checkInit();
+            });
+        }
     }
 
     /**
