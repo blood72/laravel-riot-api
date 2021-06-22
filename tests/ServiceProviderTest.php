@@ -14,7 +14,7 @@ class ServiceProviderTest extends TestCase
         /** @var \Illuminate\Support\ServiceProvider $provider */
         $provider = $this->getMockBuilder(RiotAPIServiceProvider::class)
             ->disableOriginalConstructor()
-            ->setMethodsExcept(['isDeferred'])
+            ->onlyMethods([])
             ->getMock();
 
         $actual = $provider->isDeferred();
@@ -36,7 +36,7 @@ class ServiceProviderTest extends TestCase
         /** @var \Illuminate\Support\ServiceProvider $provider */
         $provider = $this->getMockBuilder(RiotAPIServiceProvider::class)
             ->disableOriginalConstructor()
-            ->setMethodsExcept(['provides'])
+            ->onlyMethods([])
             ->getMock();
 
         $actual = $provider->provides();

@@ -6,7 +6,7 @@ use Blood72\Riot\Facades\DataDragonAPI;
 use Blood72\Riot\Facades\LeagueAPI;
 use Blood72\Riot\RiotAPIServiceProvider;
 use Orchestra\Testbench\TestCase as BaseCase;
-use RiotAPI\LeagueAPI\Definitions\Region;
+use RiotAPI\Base\Definitions\Region;
 
 abstract class TestCase extends BaseCase
 {

@@ -68,11 +68,9 @@ class RiotAPIServiceProvider extends ServiceProvider
                 LeagueAPI::SET_CACHE_PROVIDER => get_class($app['cache.psr6']),
                 LeagueAPI::SET_CACHE_PROVIDER_PARAMS => [
                     $app['cache.store'],
-                    $app['config']->get('riot-api.league.cache_namespace'),
                 ],
                 LeagueAPI::SET_DD_CACHE_PROVIDER_PARAMS => [
                     $app['cache.store'],
-                    $app['config']->get('riot-api.ddragon.cache_namespace'),
                 ],
             ], $app['config']->get('riot-api.league.settings')));
 
