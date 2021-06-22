@@ -10,7 +10,7 @@ return [
     'locale' => env('RIOT_API_LOCALE', 'en_US'),
 
     'league' => [
-        'ddragon_linking' => env('RIOT_API_LEAGUE_LINKING', true),
+        'ddragon_linking' => env('RIOT_API_LEAGUE_LINKING', false),
         'settings' => [
             //
         ],
