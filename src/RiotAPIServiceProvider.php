@@ -68,9 +68,11 @@ class RiotAPIServiceProvider extends ServiceProvider
                 LeagueAPI::SET_CACHE_PROVIDER => get_class($app['cache.psr6']),
                 LeagueAPI::SET_CACHE_PROVIDER_PARAMS => [
                     $app['cache.store'],
+                    $app['config']->get('riot-api.league.cache_namespace', 'league-api'),
                 ],
                 LeagueAPI::SET_DD_CACHE_PROVIDER_PARAMS => [
                     $app['cache.store'],
+                    $app['config']->get('riot-api.ddragon.cache_namespace', 'ddragon-api'),
                 ],
             ], $app['config']->get('riot-api.league.settings')));
 
@@ -89,18 +91,16 @@ class RiotAPIServiceProvider extends ServiceProvider
         $this->app->singleton('ddragon-api', function (Container $app) {
             if (! $app->resolved('league-api') || ! $app['config']->get('riot-api.league.ddragon_linking')) {
                 DataDragonAPI::initByCdn($app['config']->get('riot-api.ddragon.settings'));
+            }
 
-                if ($app['config']->get('riot-api.cache')) {
-                    $cache = $app['cache.psr6'];
+            if ($app['config']->get('riot-api.cache')) {
+                $cacheProvider = get_class($app['cache.psr6']);
+                $namespace = $app['config']->get('riot-api.ddragon.cache_namespace', 'ddragon-api');
 
-                    if ($namespace = $app['config']->get('riot-api.ddragon.cache_namespace')) {
-                        $cacheProvider = get_class($cache);
-                        $cache = (new $cacheProvider($app['cache.store'], $namespace));
-                    }
+                $cache = new $cacheProvider($app['cache.store'], $namespace);
 
-                    DataDragonAPI::setCacheInterface($cache);
-                }
-            };
+                DataDragonAPI::setCacheInterface($cache);
+            }
 
             return new DataDragonAPI;
         });
