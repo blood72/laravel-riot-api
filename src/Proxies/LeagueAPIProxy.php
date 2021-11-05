@@ -34,21 +34,30 @@ class LeagueAPIProxy
     {
         $reflection = new ReflectionMethod($this->api, $method);
 
+        // there is no parameter to modify
+        if ($reflection->getNumberOfParameters() === 0 || isset($parameters['locale'])) {
+            return;
+        }
+
+        $arguments = [];
+
+        // fill in the parameters used by the method
         foreach ($reflection->getParameters() as $key => $parameter) {
             if (array_key_exists($key, $parameters)) {
-                continue;
+                $arguments[$key] = $parameters[$key];
             }
-
-            if ($parameter->getName() === 'locale') {
-                $parameters[$key] = config('riot-api.locale');
-
-                break;
+            elseif (array_key_exists($parameter->getName(), $parameters)) {
+                $arguments[$key] = $parameters[$parameter->getName()];
             }
-
-            if ($parameter->isOptional()) {
-                $parameters[$key] = $parameter->getDefaultValue();
+            elseif ($parameter->getName() === 'locale') {
+                $arguments[$key] = config('riot-api.locale');
+            }
+            else {
+                $arguments[$key] = $parameter->getDefaultValue();
             }
         }
+
+        $parameters = $arguments;
     }
 
     /**
