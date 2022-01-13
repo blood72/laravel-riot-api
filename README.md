@@ -16,7 +16,7 @@ It supports initialize LeagueAPI and DataDragonAPI and adjusted to use Laravel c
 ## Requirement
 
 - PHP >= 7.3
-- Laravel ^7.0 | ^8.0
+- Laravel ^7.0 | ^8.0 | ^9.0
 - dolejska-daniel/riot-api ^5.0.0
 
 ## Installation
